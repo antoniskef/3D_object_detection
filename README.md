@@ -77,10 +77,17 @@ or it can be dynamically determined. This means that the scaling factor starts w
 the weights are not updated, and the scaling factor is reduced.
 
 ## Two approaches 
-After the initialisation of the parameters with the pretext task, the training of the object detection architecture starts. This happens twice with different learning rate schedulers in order to improve more the results. 
+After the initialisation of the parameters with the pretext task, the training of the object detection architecture starts. This happens twice with two different learning rate schedulers. 
 The authors of Transfusion use 8 graphics cards with 2 samples per card, resulting in a batch size of 16. In my implementation, using mixed precision I achieve having 4 samples per card but only on one card. So, in my case,
 the batch size is 4 times smaller, which necessitates a corresponding reduction in the learning rate. More specifically, the authors use a one-cycle scheduler [17], in which the learning rate is initialized with a value and 
 increases linearly until it reaches a maximum. Then, a linear decrease starts, reaching very small values by the end of training, surpassing even the initial value. In the case of Transfusion, they choose an initial value of 0.0001, 
-while the maximum is ten times greater, i.e., 0.001. Therefore, I choose corresponding values of 0.0001/4 and 0.001/4. Additionally, they select the increase to last for 40% of the iterations, meaning that by the end of the 8th epoch (20 epochs in total),
-it will have reached the maximum.
+while the maximum is ten times greater, i.e., 0.001. Therefore, in the first approach I use one- cycle scheduler and I choose corresponding values of 0.0001/4 and 0.001/4. Additionally, they select the increase to last for 40% of 
+the iterations, meaning that by the end of the 8th epoch (20 epochs in total), it will have reached the maximum. 
+With the aim of achieving more accurate results, a different approach for adjusting the learning rate is tested, while keeping all other hyperparameters the same. Specifically, instead of the one-cycle scheduler, a combination of 
+the cyclical learning rate and the one-cycle scheduler is used. The learning rate follows two cycles, with the second having a lower maximum and finishing, like the one-cycle scheduler, with very small, almost zero, values in the last epochs.
+As previously, the initial value is 0.0001/4, and the maximum for the first cycle is 0.001/4. Once the learning rate reaches linearly the maximum and returns to the initial value, the second cycle begins with a value of 0.0001/4 and a maximum of 0.0006.
+The first cycle lasts for 13 epochs, and the second one for 7, with a total sum equal to the first approach. 
+
+
+
 
