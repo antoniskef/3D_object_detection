@@ -1,7 +1,7 @@
-# Object Detection 
+# Object detection in point cloud
 
 ## Introduction
-The goal of this thesis is to improve the performance of the publication 
+The goal of this project is to improve the performance of the publication 
 "TransFusion: Robust LiDAR-Camera Fusion for 3D Object Detection with 
 Transformers" which relies on Transformers for object detection. The way to do this 
 is by pre-training the network, as presented in the paper "3D Object Detection with a 
