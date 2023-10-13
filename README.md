@@ -82,7 +82,8 @@ The authors of Transfusion use 8 graphics cards with 2 samples per card, resulti
 the batch size is 4 times smaller, which necessitates a corresponding reduction in the learning rate. More specifically, the authors use a one-cycle scheduler [17], in which the learning rate is initialized with a value and 
 increases linearly until it reaches a maximum. Then, a linear decrease starts, reaching very small values by the end of training, surpassing even the initial value. In the case of Transfusion, they choose an initial value of 0.0001, 
 while the maximum is ten times greater, i.e., 0.001. Therefore, in the first approach I use one- cycle scheduler and I choose corresponding values of 0.0001/4 and 0.001/4. Additionally, they select the increase to last for 40% of 
-the iterations, meaning that by the end of the 8th epoch (20 epochs in total), it will have reached the maximum. First approach in the image below.The accuracy stored in the logs is limited to the fourth decimal place, resulting in the specific discrete format when visualized. In reality, the learning rate accuracy is much higher, and in this analysis, if the complete accuracy was stored in the logs, there should be no discernible corners or discrete jumps.
+the iterations, meaning that by the end of the 8th epoch (20 epochs in total), it will have reached the maximum. First approach in the image below.The accuracy stored in the logs is limited to the fourth decimal place, resulting 
+in the specific discrete format when visualized. In reality, the learning rate accuracy is much higher, and in this analysis, if the complete accuracy was stored in the logs, there should be no discernible corners or discrete jumps.
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/18ebaf8a-81b0-4aee-8a5b-790aacc41c18)
 
 With the aim of achieving more accurate results, a different approach for adjusting the learning rate is tested, while keeping all other hyperparameters the same. Specifically, instead of the one-cycle scheduler, a combination of 
@@ -90,6 +91,18 @@ the cyclical learning rate and the one-cycle scheduler is used. The learning rat
 As previously, the initial value is 0.0001/4, and the maximum for the first cycle is 0.001/4. Once the learning rate reaches linearly the maximum and returns to the initial value, the second cycle begins with a value of 0.0001/4 and a maximum of 0.0006.
 The first cycle lasts for 13 epochs, and the second one for 7, with a total sum equal to the first approach. Second approach in the image below
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ccc94304-2bbb-4637-b41c-0588541cd118)
+
+## Results 
+The table below displays the metrics for both the first and second approaches in comparison to TransFusion. It's evident that there is an improvement compared to the publication for both approaches. It's also important to note that the model achieved
+TransFusion's performance in the 14th epoch in the second approach, while in the first approach, this occurred after the 16th epoch.
+![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/d9d6a273-aadd-42d0-875c-d3a6dbd48c63)
+
+First approach:
+![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/c78e11a4-7e1c-4bf6-92c9-edbdf1dbabe7)
+![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/d0bdfbf4-5a7f-4d23-a019-95ef730174ec)
+![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ddb6ea9c-cd71-4180-8853-591cd1b09a12)
+
+Second approach:
 
 
 
