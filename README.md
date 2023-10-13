@@ -37,9 +37,8 @@ and specifically the paper states that this is the same as the one
 used in VoxelNet. In the supplementary material at the end of the paper 
 there is an appendix that refers to the use of PointPillars as an alternative backbone network. 
 PointPillars is chosen because it is also used from the paper of the pretraining. 
-
-After the features of the points have been generated, follows the query 
-initialization. Each query object provides a query position that defines the location 
+After the generation of the features of the points, follows the query 
+initialization. Each object query provides a query position that defines the location 
 of the object and a query feature that defines attributes of the box such as 
 its size and its orientation. The final locations of the bounding boxes 
 provided are relative to the query positions, as was done 
@@ -50,9 +49,9 @@ created the need for additional decoder layers. The beginning was made in
 object detection applications in images and in particular in DETR where 
 better initialization of queries is done. So initialization is applied 
 influenced by the input data and based on a center heatmap
-producing very good results with a single decoder layer (one 
-layer refers to the first part of the network and the first prediction of the 
-bounding boxes, since as mentioned another one follows with the aim of 
-improving them using the features of the images)
+producing very good results with a single decoder layer.
+The goal is for the initial object queries to be exactly or very close to the centers 
+of the objects and so not many 
+decoders be needed to improve the location.
 
 
