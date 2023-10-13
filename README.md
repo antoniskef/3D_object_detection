@@ -54,4 +54,17 @@ The goal is for the initial object queries to be exactly or very close to the ce
 of the objects and so not many 
 decoders be needed to improve the location.
 
+## Changes 
+In the pretext task, which is the scene flow, the network learns to recognize the motion representations of objects and initializes 
+the backbone network so that object detection, after changing the heads, yields better results. However, for this to happen, the two implementations 
+must have exactly the same backbone networks. If the architecture differs, for example, if the number and type of layers or the number of weights
+are not common, the initialization does not provide any advantage. The first thing to consider is that in the network of pretraining, each point is of four dimensions,
+while in transfusion, it is five. Specifically, each point in both architectures has three coordinates, x, y, z, and one more related to differences in timestamps. 
+On the other hand, the model for object detection has one extra dimension that defines intensity. So, in order for the input to be of the same dimension and
+the first layer of the same size, the number of coordinates of the points must change for one of the implementations. It is chosen for both to have points with five coordinates, 
+which means to add intensity to the points in self-supervised learning. For the next change, it is known that in PointPillars, the points additionally take the following values: xc, yc, zc, xp, yp, 
+where the first three define the distance of the point from the center of all points belonging to the same pillar, while the next two show the distance from the center of the pillar itself. 
+In the case of pretraining, the values indicating the distance from the center of the pillar are three, as the z coordinate is added. To continue to have a common input, the detector is adjusted accordingly.
+
+
 
