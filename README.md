@@ -98,6 +98,7 @@ TransFusion's performance in the 14th epoch in the second approach, while in the
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/d9d6a273-aadd-42d0-875c-d3a6dbd48c63)
 
 First approach:
+
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/c78e11a4-7e1c-4bf6-92c9-edbdf1dbabe7)
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/d0bdfbf4-5a7f-4d23-a019-95ef730174ec)
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ddb6ea9c-cd71-4180-8853-591cd1b09a12)
