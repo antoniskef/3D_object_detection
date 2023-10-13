@@ -66,5 +66,13 @@ which means to add intensity to the points in self-supervised learning. For the 
 where the first three define the distance of the point from the center of all points belonging to the same pillar, while the next two show the distance from the center of the pillar itself. 
 In the case of pretraining, the values indicating the distance from the center of the pillar are three, as the z coordinate is added. To continue to have a common input, the detector is adjusted accordingly.
 
+As described both TransFusion and the pretraining architecture are based on PointPillars. In this architecture after creating the pillars and the three-dimensional tensors, a simplified version of PointNet
+is applied to generate features. According to the original publications of both architectures, the linear layers used before applying batch normalization and ReLU consist of one layer. Since in some other 
+papers two layers are used resulting in better performance, I add an extra layer in the sharing backbone network. 
 
+Apart from those, since I had only one graphics card for this work, the models could not be trainedbecause of an "Out Of Memory" (OOM) error. To solve this problem, I used mixed precision. 
+This means that for certain processes, half precision (FP16) is used instead of single precision (FP32). The problem that arises with this is that the gradients may become zero due to the reduced precision.
+The solution is to apply loss scaling after the forward propagation and then perform the backward propagation with the resulting gradients also scaled. The scaling can be a fixed number by which the loss is multiplied,
+or it can be dynamically determined. This means that the scaling factor starts with a large value and increases further if there is no overflow for a certain number of iterations. Conversely, if an overflow occurs,
+the weights are not updated, and the scaling factor is reduced.
 
