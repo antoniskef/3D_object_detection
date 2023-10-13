@@ -82,7 +82,7 @@ The authors of Transfusion use 8 graphics cards with 2 samples per card, resulti
 the batch size is 4 times smaller, which necessitates a corresponding reduction in the learning rate. More specifically, the authors use a one-cycle scheduler [17], in which the learning rate is initialized with a value and 
 increases linearly until it reaches a maximum. Then, a linear decrease starts, reaching very small values by the end of training, surpassing even the initial value. In the case of Transfusion, they choose an initial value of 0.0001, 
 while the maximum is ten times greater, i.e., 0.001. Therefore, in the first approach I use one- cycle scheduler and I choose corresponding values of 0.0001/4 and 0.001/4. Additionally, they select the increase to last for 40% of 
-the iterations, meaning that by the end of the 8th epoch (20 epochs in total), it will have reached the maximum. First approach in the image below
+the iterations, meaning that by the end of the 8th epoch (20 epochs in total), it will have reached the maximum. First approach in the image below.The accuracy stored in the logs is limited to the fourth decimal place, resulting in the specific discrete format when visualized. In reality, the learning rate accuracy is much higher, and in this analysis, if the complete accuracy was stored in the logs, there should be no discernible corners or discrete jumps.
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/18ebaf8a-81b0-4aee-8a5b-790aacc41c18)
 
 With the aim of achieving more accurate results, a different approach for adjusting the learning rate is tested, while keeping all other hyperparameters the same. Specifically, instead of the one-cycle scheduler, a combination of 
