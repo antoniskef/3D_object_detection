@@ -71,36 +71,37 @@ increases linearly until it reaches a maximum. Then, a linear decrease starts, r
 while the maximum is ten times greater, i.e., 0.001. Therefore, in the first approach I use one- cycle scheduler and I choose corresponding values of 0.0001/4 and 0.001/4. Additionally, they select the increase to last for 40% of 
 the iterations, meaning that by the end of the 8th epoch (20 epochs in total), it will have reached the maximum. First approach in the image below.The accuracy stored in the logs is limited to the fourth decimal place, resulting 
 in the specific discrete format when visualized. In reality, the learning rate accuracy is much higher, and in this analysis, if the complete accuracy was stored in the logs, there should be no discernible corners or discrete jumps.
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/18ebaf8a-81b0-4aee-8a5b-790aacc41c18)
+![Screenshot 2023-10-13 191336](https://github.com/antoniskef/3D_object_detection/assets/93796754/16fd7ed6-7622-48cb-9580-cb6c25509b1f)
 
 With the aim of achieving more accurate results, a different approach for adjusting the learning rate is tested, while keeping all other hyperparameters the same. Specifically, instead of the one-cycle scheduler, a combination of 
 the cyclical learning rate and the one-cycle scheduler is used. The learning rate follows two cycles, with the second having a lower maximum and finishing, like the one-cycle scheduler, with very small, almost zero, values in the last epochs.
 As previously, the initial value is 0.0001/4, and the maximum for the first cycle is 0.001/4. Once the learning rate reaches linearly the maximum and returns to the initial value, the second cycle begins with a value of 0.0001/4 and a maximum of 0.0006.
 The first cycle lasts for 13 epochs, and the second one for 7, with a total sum equal to the first approach. Second approach in the image below
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ccc94304-2bbb-4637-b41c-0588541cd118)
+![Screenshot 2023-10-13 191417](https://github.com/antoniskef/3D_object_detection/assets/93796754/ca83a71c-caef-4b6d-a7a8-d8c36f398f90)
 
 ## Results 
 The table below displays the metrics for both the first and second approaches in comparison to TransFusion. It's evident that there is an improvement compared to the publication for both approaches. It's also important to note that the model achieved
 TransFusion's performance in the 14th epoch in the second approach, while in the first approach, this occurred after the 16th epoch.
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/d9d6a273-aadd-42d0-875c-d3a6dbd48c63)
+![Screenshot 2023-10-13 191903](https://github.com/antoniskef/3D_object_detection/assets/93796754/78f93f07-87c5-4e00-85fd-da9d2eda8384)
 
 NDS and mAP are the two metrics that are being used. Below there are two graphs showing the values of the metrics for each epoch for both approaches.
 
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/c78e11a4-7e1c-4bf6-92c9-edbdf1dbabe7)
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/68c5dc0c-d864-4f7d-befa-0a46967d91cb)
+![Screenshot 2023-10-13 192058](https://github.com/antoniskef/3D_object_detection/assets/93796754/c7a927b1-291a-4375-9ec0-58eb9b26a394)
+![Screenshot 2023-10-14 161338](https://github.com/antoniskef/3D_object_detection/assets/93796754/9354dd13-398f-4d75-8a66-f22174c81f53)
 
 The two images below show the gradual reduction of losses during training. The total loss, is the weighted sum of three losses: one for classification, one for bounding boxes, and one for heatmap prediction, which contributes to the initialization of object queries and aims to position them as close as possible to the centers of objects. The weight of the heatmap loss is 1, while the other two have a weight of 0.25 each. The horizontal axis contains the iterations, which are approximately 32,000 per epoch. So, in total, there are a little over 600,000 iterations for the 20 epochs. The sudden reduction in loss at a certain point in the graph is due to the removal of a data augmentation technique from the dataset. In this techique a database is created that contains all the objects along with their labels. During training, random objects are selected from this database and added to the point cloud in use. This method, by merging point clouds from detached objects with the point cloud of the scene being processed at a given time, increases the number of objects per point cloud. To avoid unrealistic scenarios, collision checks are performed on the point clouds, and objects that overlap with others are removed.
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/d0bdfbf4-5a7f-4d23-a019-95ef730174ec)
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/efa68ec5-dd15-4153-a104-31a7c47dfac6)
+![Screenshot 2023-10-13 192157](https://github.com/antoniskef/3D_object_detection/assets/93796754/8f035200-b814-4201-958a-e9cf6e1f8964)
+![Screenshot 2023-10-14 161426](https://github.com/antoniskef/3D_object_detection/assets/93796754/cc20c20c-d131-4268-8de4-c8ada3114186)
 
 Here are the graphs showing the mean Intersection over Union (IoU) for each iteration of the predicted bounding boxes matched with ground truth bounding boxes. As training progresses, higher IoU values are calculated, indicating that the predicted boxes are approaching in size, position, and orientation the manually created bounding boxes by the Nuscenes dataset creators. The sudden increase in IoU values at a certain point is also due to the removal of data augmentation techniques from the dataset, as mentioned earlier.
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ddb6ea9c-cd71-4180-8853-591cd1b09a12)
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/79bd88c1-276f-4ba2-b1ec-4be923c9e971)
+![Screenshot 2023-10-13 192224](https://github.com/antoniskef/3D_object_detection/assets/93796754/c2768741-c1d3-4efe-a805-461183a1a9ac)
+![Screenshot 2023-10-14 161614](https://github.com/antoniskef/3D_object_detection/assets/93796754/85987c60-50c6-4bc7-a7b9-7fea007964a5)
 
 ## Visualize results
 In this subsection, there are images of point clouds along with the model's predictions. The bounding boxes in blue are the ground truth, while the green ones represent the model's predictions.
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/30d95bf1-165d-4c82-a40a-6249f0266945)
-![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ad507675-56ea-41b7-b9e3-f422087c778e)
+![Screenshot 2023-10-14 161859](https://github.com/antoniskef/3D_object_detection/assets/93796754/eda256c5-8f81-451d-82bb-1bf3c493b9ce)
+![Screenshot 2023-10-14 164353](https://github.com/antoniskef/3D_object_detection/assets/93796754/2152524c-f42e-4a5d-9e00-f2b8b7663bc0)
+
 
 
 
