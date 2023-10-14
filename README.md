@@ -111,9 +111,12 @@ Here are the graphs showing the mean Intersection over Union (IoU) for each iter
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/79bd88c1-276f-4ba2-b1ec-4be923c9e971)
 
 ## Visualize results
+In this subsection, there are images of point clouds along with the model's predictions. The bounding boxes in blue are the ground truth, while the green ones represent the model's predictions.
+![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/30d95bf1-165d-4c82-a40a-6249f0266945)
+![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ad507675-56ea-41b7-b9e3-f422087c778e)
 
 
-1. visualize results
+
 2. augmentation
 3. transfusion + oti mono cloud oxi images
 4. na balw kapoio log ktl 
