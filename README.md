@@ -31,28 +31,15 @@ features of the points and predicts some bounding boxes, which in
 second layer are refined by the contributing features from the images. 
 The attention mechanism enables the model to determine which parts 
 of the images are useful for improving the results.
-
-At the beginning, LiDAR points are entered into a backbone convolutional network 
-and specifically the paper states that this is the same as the one 
-used in VoxelNet. In the supplementary material at the end of the paper 
-there is an appendix that refers to the use of PointPillars as an alternative backbone network. 
-PointPillars is chosen because it is also used from the paper of the pretraining. 
-After the generation of the features of the points, follows the query 
-initialization. Each object query provides a query position that defines the location 
-of the object and a query feature that defines attributes of the box such as 
-its size and its orientation. The final locations of the bounding boxes 
-provided are relative to the query positions, as was done 
-with anchors where no absolute values were predicted. It is emphasized that in 
-earlier works the query positions were randomly generated or initialized as 
-parameters of the network without any consideration of the input data, which 
-created the need for additional decoder layers. The beginning was made in 
-object detection applications in images and in particular in DETR where 
-better initialization of queries is done. So initialization is applied 
-influenced by the input data and based on a center heatmap
-producing very good results with a single decoder layer.
-The goal is for the initial object queries to be exactly or very close to the centers 
-of the objects and so not many 
-decoders be needed to improve the location.
+Mixing points with images almost always surpasses methods that use one of them,
+as both contribute differently to the final result. Adding images to predictions
+with points alone helps detect small objects or objects located far from the source.
+This is due to the sparsity of point clouds, which makes it challenging to discern fine details.
+However, object detection is a task that places high demands on the graphics card's memory, 
+and the use of both points and images further increases these requirements. 
+Due to the lack of a graphics card with sufficient memory for training this specific architecture, 
+it is chosen not to use images but only points. This is feasible because the first transformer
+is followed by a feedforward network (FFN) that predicts the bounding boxes and object classes.
 
 ## Changes 
 In the pretext task, which is the scene flow, the network learns to recognize the motion representations of objects and initializes 
