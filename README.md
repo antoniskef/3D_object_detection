@@ -102,11 +102,11 @@ NDS and mAP are the two metrics that are being used. Below there are two graphs 
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/c78e11a4-7e1c-4bf6-92c9-edbdf1dbabe7)
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/68c5dc0c-d864-4f7d-befa-0a46967d91cb)
 
-The two images below show the gradual reduction of losses during training. The total loss, is the weighted sum of three losses: one for classification, one for bounding boxes, and one for heatmap prediction, which contributes to the initialization of object queries and aims to position them as close as possible to the centers of objects. The weight of the heatmap loss is 1, while the other two have a weight of 0.25 each. The horizontal axis contains the iterations, which are approximately 32,000 per epoch. So, in total, there are a little over 600,000 iterations for the 20 epochs. The significant reduction in loss is due to the removal of data augmentation techniques from the dataset, as there are now fewer objects in each cloud of points, leading to better model performance.
+The two images below show the gradual reduction of losses during training. The total loss, is the weighted sum of three losses: one for classification, one for bounding boxes, and one for heatmap prediction, which contributes to the initialization of object queries and aims to position them as close as possible to the centers of objects. The weight of the heatmap loss is 1, while the other two have a weight of 0.25 each. The horizontal axis contains the iterations, which are approximately 32,000 per epoch. So, in total, there are a little over 600,000 iterations for the 20 epochs. The sudden reduction in loss at a certain point in the graph is due to the removal of a data augmentation technique from the dataset. In this techique a database is created that contains all the objects along with their labels. During training, random objects are selected from this database and added to the point cloud in use. This method, by merging point clouds from detached objects with the point cloud of the scene being processed at a given time, increases the number of objects per point cloud. To avoid unrealistic scenarios, collision checks are performed on the point clouds, and objects that overlap with others are removed.
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/d0bdfbf4-5a7f-4d23-a019-95ef730174ec)
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/efa68ec5-dd15-4153-a104-31a7c47dfac6)
 
-Here are the graphs showing the mean Intersection over Union (IoU) for each iteration of the predicted bounding boxes matched with ground truth bounding boxes. As training progresses, higher IoU values are calculated, indicating that the predicted boxes are approaching in size, position, and orientation the manually created bounding boxes by the Nuscenes dataset creators. The increase in IoU values is also due to the removal of data augmentation techniques from the dataset, as mentioned earlier.
+Here are the graphs showing the mean Intersection over Union (IoU) for each iteration of the predicted bounding boxes matched with ground truth bounding boxes. As training progresses, higher IoU values are calculated, indicating that the predicted boxes are approaching in size, position, and orientation the manually created bounding boxes by the Nuscenes dataset creators. The sudden increase in IoU values at a certain point is also due to the removal of data augmentation techniques from the dataset, as mentioned earlier.
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ddb6ea9c-cd71-4180-8853-591cd1b09a12)
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/79bd88c1-276f-4ba2-b1ec-4be923c9e971)
 
@@ -116,8 +116,6 @@ In this subsection, there are images of point clouds along with the model's pred
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ad507675-56ea-41b7-b9e3-f422087c778e)
 
 
-
-2. augmentation
 3. transfusion + oti mono cloud oxi images
 4. na balw kapoio log ktl 
 
