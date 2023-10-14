@@ -103,8 +103,4 @@ In this subsection, there are images of point clouds along with the model's pred
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ad507675-56ea-41b7-b9e3-f422087c778e)
 
 
-3. transfusion + oti mono cloud oxi images
-4. na balw kapoio log ktl 
-
-
 
