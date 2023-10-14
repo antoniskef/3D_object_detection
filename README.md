@@ -98,6 +98,7 @@ TransFusion's performance in the 14th epoch in the second approach, while in the
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/d9d6a273-aadd-42d0-875c-d3a6dbd48c63)
 
 NDS and mAP are the two metrics that are being used. Below there are two graphs showing the values of the metrics for each epoch for both approaches.
+
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/c78e11a4-7e1c-4bf6-92c9-edbdf1dbabe7)
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/68c5dc0c-d864-4f7d-befa-0a46967d91cb)
 
