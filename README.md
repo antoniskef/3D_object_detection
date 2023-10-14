@@ -109,7 +109,13 @@ Here are the graphs showing the mean Intersection over Union (IoU) for each iter
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/ddb6ea9c-cd71-4180-8853-591cd1b09a12)
 ![image](https://github.com/antoniskef/3d_object_detection/assets/93796754/79bd88c1-276f-4ba2-b1ec-4be923c9e971)
 
+## Visualize results
 
+
+1. visualize results
+2. augmentation
+3. transfusion + oti mono cloud oxi images
+4. na balw kapoio log ktl 
 
 
 
