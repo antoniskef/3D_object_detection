@@ -1,4 +1,4 @@
-# Object detection in point cloud
+# 3D object detection
 
 ## Introduction
 The goal of this project is to improve the performance of the publication 
